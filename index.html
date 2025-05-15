@@ -19,7 +19,10 @@
       scrollbar-width: none;         /* Firefox */
       -ms-overflow-style: none;      /* IE/Edge */
     }
-    body::-webkit-scrollbar {
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar,
+    .table-container::-webkit-scrollbar {
       display: none;                 /* Chrome, Safari */
     }
 
@@ -92,6 +95,8 @@
     .table-container {
       overflow-x: auto;
       margin: 0 20px 60px;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
     }
 
     table {
