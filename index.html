@@ -75,7 +75,7 @@
     }
     .table-container {
       overflow-x: auto;
-      margin: 0 20px 120px;
+      margin: 0 20px 60px;
     }
     table {
       width: 100%;
@@ -109,19 +109,10 @@
     .mute { color: #3399ff; font-weight: bold; }
     .warn { color: #ffcc00; font-weight: bold; }
     @keyframes fadeInUp {
-      from {
-        opacity: 0;
-        transform: translateY(40px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
     }
     footer {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
       background-color: rgba(0, 0, 0, 0.6);
       backdrop-filter: blur(10px);
       padding: 10px;
@@ -139,6 +130,43 @@
     }
     footer a:hover {
       text-decoration: underline;
+    }
+    .faq-item {
+      background: rgba(255,255,255,0.02);
+      border-radius: 10px;
+      margin: 15px 20px;
+      padding: 15px 20px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      transition: background 0.3s ease;
+    }
+    .faq-item:hover {
+      background: rgba(255,255,255,0.04);
+    }
+    .faq-question {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.1em;
+    }
+    .faq-answer {
+      overflow: hidden;
+      max-height: 0;
+      opacity: 0;
+      transition: max-height 0.4s ease, opacity 0.4s ease;
+      color: #ccc;
+      margin-top: 10px;
+    }
+    .faq-item.active .faq-answer {
+      max-height: 300px;
+      opacity: 1;
+    }
+    .arrow {
+      display: inline-block;
+      transition: transform 0.4s ease;
+    }
+    .faq-item.active .arrow {
+      transform: rotate(180deg);
     }
   </style>
 </head>
@@ -170,13 +198,28 @@
       <tbody id="punishmentBody"></tbody>
     </table>
   </div>
+  <section id="faq">
+    <h2 style="text-align: center; font-size: 2em; margin-bottom: 30px; color: #3399ff; text-shadow: 0 0 10px #3399ff88;">پرسش‌های متداول</h2>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-question"><span class="arrow">▼</span><strong>چگونه آی‌پی سرور را کپی کنم؟</strong></div>
+      <div class="faq-answer">با کلیک روی باکس آبی آی‌پی، به صورت خودکار کپی خواهد شد.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-question"><span class="arrow">▼</span><strong>اگر اشتباهاً مجازات شدم، چطور اعتراض کنم؟</strong></div>
+      <div class="faq-answer">می‌توانید از طریق دیسکورد رسمی سرور، درخواست بررسی ارسال کنید.</div>
+    </div>
+    <div class="faq-item" onclick="toggleFAQ(this)">
+      <div class="faq-question"><span class="arrow">▼</span><strong>چه گونه میتوانیم با تیم استف ارتباط بگیریم ؟</strong></div>
+      <div class="faq-answer">می‌توانید از طریق دیسکورد رسمی سرور، با تیم مدریتی سرور ارتباط بگیرید.</div>
+    </div>
+  </section>
   <footer>
     ساخته شده توسط تیم <a href="#">X-Rugen</a> | ارتباط با ما در <a href="https://discord.gg/AJBF5CPmYx" target="_blank">دیسکورد</a>
   </footer>
   <script>
     const punishmentData = `چیت زدن	-	 1D Ban	3D Ban	7D Ban	14D Ban	30D Ban	30D Ban	Permanent Ban	-
-فحاشی	2 Warns	2h Mute	6h Mute + Kick	1D Mute + 6h Ban	7D Mute + 1D Ban	7D Ban	7D Ban	Permanent Ban	-
-آزار و اذیت	1 Warns	2h Mute	6h Mute + Kick	1D Ban	3D Ban	7D Ban	7D Ban	Permanent Ban	-
+فحاشی	2 Warns	2h Mute	6h Mute	1D Mute + 6h Ban	7D Mute + 1D Ban	7D Ban	7D Ban	Permanent Ban	-
+آزار و اذیت	1 Warns	2h Mute	6h Mute	1D Ban	3D Ban	7D Ban	7D Ban	Permanent Ban	-
 گریف کردن	-	6h Ban	1D Ban	2D Ban	3D Ban	7D Ban	14D Ban	14D Ban + Account Delete	Permanent Ban
 اکسپلویت یا سوء استفاده از باگ	-	6h Ban + Item Delete	1D Ban + Item Delete	7D Ban + Item Delete	14D Ban + Item Delete	30D Ban + Account Delete	Permanent Ban	-
 مود های نا عادلانه	-	6h Ban	1D Ban	3D Ban	7D Ban	14D Ban	30D Ban	Permanent Ban	-
@@ -248,6 +291,9 @@
       navigator.clipboard.writeText("MC.Xrugen.IR");
       alert("✅ آی‌پی سرور کپی شد: MC.Xrugen.IR");
     }
+  function toggleFAQ(element) {
+    element.classList.toggle("active");
+  }
   </script>
 </body>
 </html>
